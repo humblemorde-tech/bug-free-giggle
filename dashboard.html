@@ -1,0 +1,598 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>WhatsApp Bot - Pairing Dashboard 🚀</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 20px;
+        }
+
+        .container {
+            background: white;
+            border-radius: 20px;
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+            max-width: 600px;
+            width: 100%;
+            padding: 40px;
+            animation: slideIn 0.6s ease-out;
+        }
+
+        @keyframes slideIn {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .header {
+            text-align: center;
+            margin-bottom: 40px;
+        }
+
+        .header h1 {
+            font-size: 2.5em;
+            color: #333;
+            margin-bottom: 10px;
+            animation: fadeInDown 0.8s ease-out;
+        }
+
+        .header p {
+            font-size: 1.1em;
+            color: #666;
+            animation: fadeInUp 0.8s ease-out;
+        }
+
+        @keyframes fadeInDown {
+            from {
+                opacity: 0;
+                transform: translateY(-20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .dashboard-section {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            border-radius: 15px;
+            padding: 30px;
+            color: white;
+            margin-bottom: 30px;
+            animation: fadeIn 1s ease-out;
+        }
+
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+            }
+            to {
+                opacity: 1;
+            }
+        }
+
+        .dashboard-title {
+            font-size: 1.5em;
+            margin-bottom: 20px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .status-indicator {
+            display: inline-block;
+            width: 12px;
+            height: 12px;
+            background: #4ade80;
+            border-radius: 50%;
+            animation: pulse 2s infinite;
+        }
+
+        @keyframes pulse {
+            0%, 100% {
+                box-shadow: 0 0 0 0 rgba(74, 222, 128, 0.7);
+            }
+            50% {
+                box-shadow: 0 0 0 10px rgba(74, 222, 128, 0);
+            }
+        }
+
+        .pairing-code-box {
+            background: rgba(255, 255, 255, 0.1);
+            border: 2px solid rgba(255, 255, 255, 0.3);
+            border-radius: 10px;
+            padding: 20px;
+            text-align: center;
+            margin: 20px 0;
+            backdrop-filter: blur(10px);
+        }
+
+        .pairing-code-label {
+            font-size: 0.9em;
+            opacity: 0.9;
+            margin-bottom: 10px;
+        }
+
+        .pairing-code {
+            font-size: 2.5em;
+            font-weight: bold;
+            letter-spacing: 5px;
+            font-family: 'Courier New', monospace;
+            animation: blink 1s infinite;
+        }
+
+        @keyframes blink {
+            0%, 49%, 100% {
+                opacity: 1;
+            }
+            50%, 99% {
+                opacity: 0.7;
+            }
+        }
+
+        .steps {
+            list-style: none;
+            margin: 20px 0;
+        }
+
+        .steps li {
+            padding: 10px 0;
+            padding-left: 30px;
+            position: relative;
+            font-size: 0.95em;
+            line-height: 1.6;
+        }
+
+        .steps li:before {
+            content: "✓";
+            position: absolute;
+            left: 0;
+            font-weight: bold;
+            font-size: 1.2em;
+        }
+
+        .pair-button {
+            width: 100%;
+            padding: 18px;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            border: none;
+            border-radius: 10px;
+            font-size: 1.1em;
+            font-weight: bold;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            margin-bottom: 15px;
+            animation: slideUp 0.8s ease-out;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+        }
+
+        @keyframes slideUp {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .pair-button:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 10px 30px rgba(102, 126, 234, 0.4);
+        }
+
+        .pair-button:active {
+            transform: translateY(-1px);
+        }
+
+        .pair-button .icon {
+            font-size: 1.3em;
+        }
+
+        .support-section {
+            background: #f8f9fa;
+            border-radius: 15px;
+            padding: 25px;
+            margin-bottom: 30px;
+        }
+
+        .support-title {
+            font-size: 1.3em;
+            color: #333;
+            margin-bottom: 15px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .support-buttons {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 10px;
+        }
+
+        .support-btn {
+            padding: 12px;
+            border: none;
+            border-radius: 8px;
+            font-weight: bold;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            text-decoration: none;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+            font-size: 0.9em;
+        }
+
+        .support-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+        }
+
+        .youtube-btn {
+            background: #FF0000;
+            color: white;
+        }
+
+        .whatsapp-btn {
+            background: #25D366;
+            color: white;
+        }
+
+        .facebook-btn {
+            background: #1877F2;
+            color: white;
+        }
+
+        .tiktok-btn {
+            background: #000000;
+            color: white;
+        }
+
+        .deploy-section {
+            background: #f8f9fa;
+            border-radius: 15px;
+            padding: 25px;
+            margin-bottom: 30px;
+        }
+
+        .deploy-title {
+            font-size: 1.3em;
+            color: #333;
+            margin-bottom: 15px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .deploy-buttons {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 10px;
+        }
+
+        .deploy-btn {
+            padding: 12px;
+            border: none;
+            border-radius: 8px;
+            font-weight: bold;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            text-decoration: none;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+            font-size: 0.95em;
+            color: white;
+        }
+
+        .deploy-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+        }
+
+        .heroku-btn {
+            background: #430098;
+        }
+
+        .render-btn {
+            background: #46E3B7;
+            color: #333;
+        }
+
+        .railway-btn {
+            background: #0B0D0E;
+        }
+
+        .footer {
+            text-align: center;
+            color: #666;
+            font-size: 0.9em;
+            margin-top: 30px;
+            padding-top: 20px;
+            border-top: 1px solid #eee;
+        }
+
+        .loading-spinner {
+            display: inline-block;
+            width: 20px;
+            height: 20px;
+            border: 3px solid rgba(255, 255, 255, 0.3);
+            border-radius: 50%;
+            border-top-color: white;
+            animation: spin 1s linear infinite;
+        }
+
+        @keyframes spin {
+            to {
+                transform: rotate(360deg);
+            }
+        }
+
+        .modal {
+            display: none;
+            position: fixed;
+            z-index: 1000;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.5);
+            animation: fadeIn 0.3s ease-out;
+        }
+
+        .modal-content {
+            background-color: white;
+            margin: 10% auto;
+            padding: 30px;
+            border-radius: 15px;
+            width: 90%;
+            max-width: 500px;
+            text-align: center;
+            animation: slideIn 0.3s ease-out;
+        }
+
+        .close {
+            color: #aaa;
+            float: right;
+            font-size: 28px;
+            font-weight: bold;
+            cursor: pointer;
+        }
+
+        .close:hover {
+            color: #000;
+        }
+
+        .modal-title {
+            font-size: 1.8em;
+            margin-bottom: 20px;
+            color: #333;
+        }
+
+        .modal-code {
+            font-size: 3em;
+            font-weight: bold;
+            letter-spacing: 5px;
+            color: #667eea;
+            font-family: 'Courier New', monospace;
+            margin: 20px 0;
+            animation: blink 1s infinite;
+        }
+
+        .modal-steps {
+            text-align: left;
+            margin: 20px 0;
+            font-size: 0.95em;
+        }
+
+        .modal-steps ol {
+            margin-left: 20px;
+        }
+
+        .modal-steps li {
+            margin: 10px 0;
+            line-height: 1.6;
+        }
+
+        .close-modal-btn {
+            padding: 10px 30px;
+            background: #667eea;
+            color: white;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            font-size: 1em;
+            font-weight: bold;
+            margin-top: 20px;
+            transition: all 0.3s ease;
+        }
+
+        .close-modal-btn:hover {
+            background: #764ba2;
+        }
+
+        @media (max-width: 600px) {
+            .container {
+                padding: 25px;
+            }
+
+            .header h1 {
+                font-size: 2em;
+            }
+
+            .pairing-code {
+                font-size: 2em;
+            }
+
+            .support-buttons {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>🚀 WhatsApp Bot Dashboard</h1>
+            <p>Connect Your WhatsApp Account in Seconds</p>
+        </div>
+
+        <div class="dashboard-section">
+            <div class="dashboard-title">
+                <span class="status-indicator"></span>
+                Status: Ready to Pair
+            </div>
+            <p style="margin-bottom: 20px; opacity: 0.95;">Your WhatsApp bot is ready to connect. Click the button below to start the pairing process.</p>
+            
+            <button class="pair-button" onclick="openPairingModal()">
+                <span class="icon">🔗</span>
+                PAIR YOUR BOT NOW
+            </button>
+
+            <div class="pairing-code-box">
+                <div class="pairing-code-label">Your Pairing Code Will Appear Here</div>
+                <div class="pairing-code">••••••••</div>
+            </div>
+
+            <ul class="steps">
+                <li>Click "PAIR YOUR BOT NOW" to generate your code</li>
+                <li>Open WhatsApp on your phone</li>
+                <li>Go to Linked Devices → Link a Device</li>
+                <li>Select "Link with phone number instead"</li>
+                <li>Enter the 8-digit code from this dashboard</li>
+                <li>Your bot will connect automatically! 🎉</li>
+            </ul>
+        </div>
+
+        <div class="support-section">
+            <div class="support-title">
+                💖 Support & Community
+            </div>
+            <p style="margin-bottom: 15px; color: #666; font-size: 0.95em;">Follow us before deploying your bot!</p>
+            <div class="support-buttons">
+                <a href="https://youtube.com/@mordecaikiplangat?si=6olktnbb-r52fXvx" target="_blank" class="support-btn youtube-btn">
+                    <span>▶️</span> YouTube
+                </a>
+                <a href="https://whatsapp.com/channel/0029VbCvxDY3QxRwAtJ5XK0v" target="_blank" class="support-btn whatsapp-btn">
+                    <span>💬</span> WhatsApp
+                </a>
+                <a href="https://www.facebook.com/Morde123" target="_blank" class="support-btn facebook-btn">
+                    <span>f</span> Facebook
+                </a>
+                <a href="https://www.tiktok.com/@morde591?_r=1&_t=ZS-97E6BGJakVA" target="_blank" class="support-btn tiktok-btn">
+                    <span>♪</span> TikTok
+                </a>
+            </div>
+        </div>
+
+        <div class="deploy-section">
+            <div class="deploy-title">
+                🌐 Deploy Your Bot
+            </div>
+            <p style="margin-bottom: 15px; color: #666; font-size: 0.95em;">Choose your preferred hosting platform:</p>
+            <div class="deploy-buttons">
+                <a href="https://heroku.com/deploy?template=https://github.com/humblemorde-tech/bug-free-giggle" target="_blank" class="deploy-btn heroku-btn">
+                    <span>⚡</span> Deploy to Heroku
+                </a>
+                <a href="https://render.com/deploy?repo=https://github.com/humblemorde-tech/bug-free-giggle" target="_blank" class="deploy-btn render-btn">
+                    <span>🎨</span> Deploy to Render
+                </a>
+                <a href="https://railway.app/new/template?template=https://github.com/humblemorde-tech/bug-free-giggle" target="_blank" class="deploy-btn railway-btn">
+                    <span>🚂</span> Deploy to Railway
+                </a>
+            </div>
+        </div>
+
+        <div class="footer">
+            <p>🤖 WhatsApp Bot v1.0.0 | Built with ❤️ by Manus AI</p>
+            <p style="margin-top: 10px; font-size: 0.85em;">© 2024 All Rights Reserved</p>
+        </div>
+    </div>
+
+    <!-- Pairing Modal -->
+    <div id="pairingModal" class="modal">
+        <div class="modal-content">
+            <span class="close" onclick="closePairingModal()">&times;</span>
+            <div class="modal-title">🔐 Pairing Code</div>
+            <p style="color: #666; margin-bottom: 20px;">Your 8-digit pairing code:</p>
+            <div class="modal-code">12345678</div>
+            <p style="color: #999; font-size: 0.9em; margin: 20px 0;">This code will expire in 5 minutes</p>
+            
+            <div class="modal-steps">
+                <p style="font-weight: bold; color: #333; margin-bottom: 10px;">Follow these steps:</p>
+                <ol>
+                    <li>Open WhatsApp on your phone</li>
+                    <li>Go to <strong>Linked Devices</strong></li>
+                    <li>Tap <strong>Link a Device</strong></li>
+                    <li>Select <strong>Link with phone number instead</strong></li>
+                    <li>Enter this code: <strong>12345678</strong></li>
+                    <li>Wait for the connection to complete</li>
+                </ol>
+            </div>
+
+            <button class="close-modal-btn" onclick="closePairingModal()">Got It! ✓</button>
+        </div>
+    </div>
+
+    <script>
+        function openPairingModal() {
+            const modal = document.getElementById("pairingModal");
+            modal.style.display = "block";
+            
+            // Simulate generating a pairing code
+            const code = Math.floor(10000000 + Math.random() * 90000000).toString();
+            document.querySelector(".modal-code").textContent = code;
+        }
+
+        function closePairingModal() {
+            const modal = document.getElementById("pairingModal");
+            modal.style.display = "none";
+        }
+
+        window.onclick = function(event) {
+            const modal = document.getElementById("pairingModal");
+            if (event.target == modal) {
+                modal.style.display = "none";
+            }
+        }
+    </script>
+</body>
+  </html>
